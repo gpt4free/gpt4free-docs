@@ -1,9 +1,9 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "Starter Kit",
+  "name": "G4F Docs",
   "logo": {
     "dark": "/logo/dark.svg",
-    "light": "/logo/light.svg"
+    "light": "/logo/dark.svg"
   },
   "favicon": "/favicon.svg",
   "colors": {
@@ -18,12 +18,12 @@
   "topbarLinks": [
     {
       "name": "Support",
-      "url": "mailto:hi@mintlify.com"
+      "url": "mailto:support@g4f.ai"
     }
   ],
   "topbarCtaButton": {
-    "name": "Dashboard",
-    "url": "https://dashboard.mintlify.com"
+    "name": "Github",
+    "url": "https://github.com/xtekky/gpt4free"
   },
   "tabs": [
     {
@@ -51,7 +51,7 @@
   "navigation": [
     {
       "group": "Get Started",
-      "pages": ["introduction", "quickstart", "development"]
+      "pages": ["get-started/introduction", "get-started/quickstart", "get-started/development", "get-started/usage", "get-started/contributing", "get-started/changelog"]
     },
     {
       "group": "Essentials",
@@ -71,8 +71,8 @@
     }
   ],
   "footerSocials": {
-    "twitter": "https://twitter.com/mintlify",
-    "github": "https://github.com/mintlify",
-    "linkedin": "https://www.linkedin.com/company/mintsearch"
+    "twitter": "https://twitter.com/xtekky",
+    "github": "https://github.com/xtekky/gpt4free",
+    "telegram": "https://t.me/g4f_channel"
   }
 }
