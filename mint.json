@@ -51,15 +51,20 @@
   "navigation": [
     {
       "group": "Get Started",
-      "pages": ["get-started/introduction", "get-started/quickstart", "get-started/development", "get-started/usage", "get-started/contributing", "get-started/changelog"]
-    },
-    {
-      "group": "Essentials",
-      "pages": ["essentials/markdown", "essentials/code", "essentials/images", "essentials/settings", "essentials/navigation"]
+      "pages": [
+        "get-started/introduction",
+        "get-started/quickstart",
+        "get-started/development",
+        "get-started/usage",
+        "get-started/contributing",
+        "get-started/changelog"
+      ]
     },
     {
       "group": "API Documentation",
-      "pages": ["api-reference/introduction"]
+      "pages": [
+        "api-reference/introduction"
+      ]
     },
     {
       "group": "Endpoint Examples",
