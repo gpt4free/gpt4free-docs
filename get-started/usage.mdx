@@ -1,0 +1,177 @@
+---
+title: "Usage"
+description: "Documentation showing how to use the g4f package."
+---
+
+## Usage
+
+The `g4f` package is designed to provide an interface for interacting with various chat and language models. 
+
+### Importing and Initial setup:
+
+```py
+import g4f
+
+g4f.debug.logging = True # enable logging
+g4f.check_version = False # Disable automatic version checking
+print(g4f.version) # check version
+print(g4f.Provider.Ails.params)  # supported args
+```
+
+### ChatCompletion:
+
+ChatCompletion provides an interface for interacting with chat models.
+
+#### Streamed completion:
+Streamed completion returns a response iteratively as and when they are received.
+
+```py
+response = g4f.ChatCompletion.create(
+    model="gpt-3.5-turbo",
+    messages=[{"role": "user", "content": "Hello"}],
+    stream=True,
+)
+
+for message in response:
+    print(message, flush=True, end='')
+```
+
+#### Normal response:
+
+You can also generate non-streaming responses.
+
+```py
+response = g4f.ChatCompletion.create(
+    model=g4f.models.gpt_4,
+    messages=[{"role": "user", "content": "Hello"}],
+)  # alternative model setting
+
+print(response)
+```
+
+### Completion:
+
+The Completion interface is designed to provide an interface for language models.
+
+```py
+allowed_models = [
+    'code-davinci-002',
+    'text-ada-001',
+    'text-babbage-001',
+    'text-curie-001',
+    'text-davinci-002',
+    'text-davinci-003'
+]
+
+response = g4f.Completion.create(
+    model  = 'text-davinci-003',
+    prompt = 'say this is a test')
+
+print(response)
+```
+
+### Service Providers:
+
+The g4f package supports a variety of service providers which can be set when using the ChatCompletion interface.
+
+```py
+from g4f.Provider import (
+    AItianhu,
+    Aichat,
+    Bard,
+    Bing,
+    ChatBase,
+    ChatgptAi,
+    OpenaiChat,
+    Vercel,
+    You,
+    Yqcloud,
+)
+
+# Set with provider
+response = g4f.ChatCompletion.create(
+    model="gpt-3.5-turbo",
+    provider=g4f.Provider.Aichat,
+    messages=[{"role": "user", "content": "Hello"}],
+    stream=True,
+)
+
+for message in response:
+    print(message)
+```
+
+### Cookies:
+
+For some providers, you may need to provide cookie information.
+
+```py
+from g4f.Provider import (
+    Bard,
+    Bing,
+    HuggingChat,
+    OpenAssistant,
+    OpenaiChat,
+)
+
+# Usage:
+response = g4f.ChatCompletion.create(
+    model=g4f.models.default,
+    messages=[{"role": "user", "content": "Hello"}],
+    provider=Bard,
+    #cookies=g4f.get_cookies(".google.com"),
+    cookies={"cookie_name": "value", "cookie_name2": "value2"},
+    auth=True
+)
+```
+
+### Async Support:
+
+Achieve faster and more efficient execution by running service providers asynchronously.
+
+```py
+import g4f, asyncio
+
+_providers = [
+    g4f.Provider.Aichat,
+    g4f.Provider.ChatBase,
+    g4f.Provider.Bing,
+    g4f.Provider.GptGo,
+    g4f.Provider.You,
+    g4f.Provider.Yqcloud,
+]
+
+async def run_provider(provider: g4f.Provider.BaseProvider):
+    try {
+        response = await g4f.ChatCompletion.create_async(
+            model=g4f.models.default,
+            messages=[{"role": "user", "content": "Hello"}],
+            provider=provider,
+        )
+        print(f"{provider.__name__}:", response)
+    } except Exception as e {
+        print(f"{provider.__name__}:", e)
+      
+async def run_all():
+    calls = [
+        run_provider(provider) for provider in _providers
+    ]
+    await asyncio.gather(*calls)
+
+asyncio.run(run_all())
+```
+
+### Proxy and Timeout Support:
+
+You can specify a proxy and custom timeout with each provider.
+
+```py
+response = g4f.ChatCompletion.create(
+    model=g4f.models.default,
+    messages=[{"role": "user", "content": "Hello"}],
+    proxy="http://host:port",
+    # or socks5://user:pass@host:port
+    timeout=120, # in secs
+)
+
+print(f"Result:", response)
+```
