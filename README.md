@@ -1,32 +1,12 @@
-# Mintlify Starter Kit
+# g4f docs
 
-Click on `Use this template` to copy the Mintlify starter kit. The starter kit contains examples including
 
-- Guide pages
-- Navigation
-- Customizations
-- API Reference pages
-- Use of popular components
+These docs use mdx and markdown, and are still in early stage with a lot of instructions missing.
+We'd love your help and contribution to improve the documentation.
 
-### Development
+Open a pull request here: https://github.com/xtekky/gpt4free-docs/pulls
 
-Install the [Mintlify CLI](https://www.npmjs.com/package/mintlify) to preview the documentation changes locally. To install, use the following command
+<img width="1470" alt="image" src="https://github.com/xtekky/gpt4free-docs/assets/98614666/11eb7be2-7bed-4274-a902-2f6a6ee65039">
 
-```
-npm i -g mintlify
-```
 
-Run the following command at the root of your documentation (where mint.json is)
-
-```
-mintlify dev
-```
-
-### Publishing Changes
-
-Install our Github App to autopropagate changes from youre repo to your deployment. Changes will be deployed to production automatically after pushing to the default branch. Find the link to install on your dashboard. 
-
-#### Troubleshooting
-
-- Mintlify dev isn't running - Run `mintlify install` it'll re-install dependencies.
-- Page loads as a 404 - Make sure you are running in a folder with `mint.json`
+*powered by [mintlify](https://mintlify.com/docs/quickstart)*
