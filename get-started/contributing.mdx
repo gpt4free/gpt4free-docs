@@ -3,4 +3,83 @@ title: 'Contibute'
 description: 'How to contribute to g4f'
 ---
 
-not finished, come back later ; ) 
+<b>Create Provider with AI Tool</b>
+
+<Note>
+    To create a Provider with AI tool you need cloned gpt4free repository, not PyPi version
+</Note>
+
+Call in your terminal the "create_provider" script:
+
+```
+python etc/tool/create_provider.py
+```
+
+1. Enter your name for the new provider.
+2. Copy and paste the URL command from your browser developer tools.
+3. Let the AI create the provider for you.
+4. Customize the provider according to your needs.
+
+<b>Create provider without AI tools</b>
+
+<Note>
+    List of  list of potential providers available <a href="https://github.com/zukixa/cool-ai-stuff">here</a>
+</Note>
+
+1. Find provider.
+2. Create a new file in g4f/Provider with the name of the Provider.
+3. Implement a class that extends BaseProvider:
+```python
+from __future__ import annotations
+
+from ..typing import AsyncResult, Messages
+from .base_provider import AsyncGeneratorProvider
+
+class HogeService(AsyncGeneratorProvider):
+    url                   = "https://your-base-url"
+    supports_gpt_35_turbo = True
+    working               = True
+
+    @classmethod
+    async def create_async_generator(
+        cls,
+        model: str,
+        messages: Messages,
+        proxy: str = None,
+        **kwargs
+    ) -> AsyncResult:
+        yield ""
+```
+4. Here, you can adjust the settings, for example, if the website does support streaming, set supports_stream to True...
+
+| Name                     | Function                                                                                                |
+|--------------------------|---------------------------------------------------------------------------------------------------------|
+| working                  | If this parameter set to True, this provider is active. Otherwise, provider will be thrown RuntimeError |
+| supports_message_history | If this parameter set to True, this provider support message history                                    |
+| supports_gpt_35_turbo    | If this parameter set to True, this provider support gpt-3.5-turbo                                      |
+| supports_gpt_4           | If this parameter set to True, this provider support gpt-4                                              |
+| jailbreak                | If this parameter set to True, this provider support emulation other models with special prompt         |
+
+5. Write code to request the provider in create_async_generator and yield the response, even if it's a one-time response, do not hesitate to look at other providers for inspiration
+6. Add the Provider Name in g4f/Provider/init.py:
+```python
+from .YourProviderName import YourProviderName
+
+convert: dict[str, BaseProvider] = {
+    "YourProviderName": YourProviderName,
+}
+
+__all__ = [
+    YourProviderName,
+]
+```
+7. You are done! Test your provider by calling it:
+```python
+import g4f
+
+response = g4f.ChatCompletion.create(model='gpt-3.5-turbo', provider=g4f.Provider.YourProviderName,
+                                    messages=[{"role": "user", "content": "test"}], stream=g4f.Provider.YourProviderNameE.supports_stream)
+
+for message in response:
+    print(message, flush=True, end='')
+```
