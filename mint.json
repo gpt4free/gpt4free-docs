@@ -26,26 +26,22 @@
     "url": "https://github.com/xtekky/gpt4free"
   },
   "tabs": [
-    {
-      "name": "API Reference",
-      "url": "api-reference"
-    }
   ],
   "anchors": [
     {
       "name": "Documentation",
       "icon": "book-open-cover",
-      "url": "https://mintlify.com/docs"
+      "url": "https://github.com/xtekky/gpt4free"
     },
     {
       "name": "Community",
       "icon": "slack",
-      "url": "https://mintlify.com/community"
+      "url": "https://github.com/xtekky/gpt4free"
     },
     {
       "name": "Blog",
       "icon": "newspaper",
-      "url": "https://mintlify.com/blog"
+      "url": "https://github.com/xtekky/gpt4free"
     }
   ],
   "navigation": [
