@@ -60,5 +60,10 @@
     "twitter": "https://twitter.com/xtekky",
     "github": "https://github.com/xtekky/gpt4free",
     "telegram": "https://t.me/g4f_channel"
+  },
+  "analytics": {
+      "ga4": {
+          "measurementId": "G-LWD9Y0RRM2"
+      }
   }
 }
