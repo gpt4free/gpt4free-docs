@@ -55,7 +55,14 @@
         {
           "group": "Quickstart",
           "pages": [
-            "docs/get-started/quickstart/install",
+            {
+              "group": "Install",
+              "pages": [
+                "docs/get-started/quickstart/install/clone",
+                "docs/get-started/quickstart/install/docker",
+                "docs/get-started/quickstart/install/pip"
+              ]
+            },
             "docs/get-started/quickstart/use"
           ]
         }
