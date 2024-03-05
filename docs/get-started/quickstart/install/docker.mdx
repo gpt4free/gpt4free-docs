@@ -1,4 +1,48 @@
 ---
 title: 'Install with Docker'
-description: 'Instruction on how to install g4f on your computer'
+description: 'Instructions on how to install g4f using Docker'
 ---
+<Steps titleSize="h3">
+<Step title="Install Docker">
+ G4F can be run using [`Docker`](https://www.docker.com/). Ensure that you have Docker installed on your system.
+ You can check if you have `Docker` installed by running the following command in your terminal:
+```bash
+user@mac-air:~$ docker --version
+> Docker version 23.0.5, build bc4487a
+```
+If you don't have Docker installed, you can download it from the [official Docker website](https://www.docker.com/products/docker-desktop).
+</Step>
+<Step title="Pull the g4f Docker image">
+ You can pull the `g4f` Docker image using the following command:
+```bash
+docker pull hlohaus789/g4f:latest
+```
+This will download the latest version of the g4f Docker image.
+</Step>
+<Step title="Run the g4f Docker container">
+ Once the image is pulled, you can run the g4f Docker container with the following command:
+```bash
+docker run -p 8080:8080 -p 1337:1337 -p 7900:7900 --shm-size="2g" hlohaus789/g4f:latest
+```
+This command will start the g4f container and expose the necessary ports.
+</Step>
+<Step title="Access the Web UI">
+ After starting the container, you can access the included web client at:
+ ```
+ http://localhost:8080/chat/
+ ```
+ Alternatively, you can set the API base in your own client to:
+ ```
+ http://localhost:1337/v1
+ ```
+
+ This can be used with the openai python package, [API Specifications](/docs/api-docs/)
+</Step>
+<Step title="(Optional) View the container desktop">
+ If you need to log in to a provider, you can view the desktop from the container at:
+ ```
+ http://localhost:7900/?autoconnect=1&resize=scale&password=secret
+ ```
+</Step>
+All set! You now have g4f running in a Docker container. You can navigate to [Basic Usage](/docs/get-started/quickstart/use) for further instructions.
+</Steps>

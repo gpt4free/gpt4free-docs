@@ -2,3 +2,69 @@
 title: 'Install with pip'
 description: 'Instruction on how to install g4f on your computer'
 ---
+
+<Steps titleSize="h3">
+    <Step title="Install Python & pip">
+        G4F requires [`Python`](https://www.python.org/) to run. Ensure that you have Python installed on your system.
+        You can check if you have `Python` installed by running the following command in your terminal:
+
+        ```bash
+        user@mac-air:~$ python3 --version
+        > Python 3.11.6
+        ```
+    </Step>
+    <Step title="Install g4f">
+        You can install `g4f` using `pip`:
+
+        <Tabs>
+            <Tab title="pip">
+            ```bash
+            pip isntall -U g4f
+            ```
+            </Tab>
+            <Tab title="pip3">
+            ```bash
+            pip3 install -U g4f
+            ```
+            </Tab>
+            <Tab title="python">
+            ```bash
+            python -m pip -U install g4f
+            ```
+            </Tab>
+            <Tab title="pipx">
+            ```bash
+            pipx -U install g4f
+            ```
+            </Tab>
+        </Tabs>
+    </Step>
+    <Step title="Import & run">
+        You can now import `g4f` into your project:
+
+        <Steps>
+            <Step title="Import g4f & simple usecase">
+
+                ```jsx
+                import g4f
+
+                engine = g4f.client.Client()
+
+                completion = engine.chat.completions.create(
+                    model="gpt-3.5-turbo",
+                    messages=[{"role": "user", "content": "Hello"}])
+
+                print(completion.choices[0].message.content)
+                ```
+            </Step>
+            <Step title="run the script">
+                ```bash
+                user@mac-air:~$ python3 test.py
+                >>> Hello, how can I be of help today ?
+                ```
+            </Step>
+        </Steps>
+        
+        All set ! You can now navigate to [Basic Usage](/docs/get-started/quickstart/use) for further instructions.
+    </Step>
+</Steps>

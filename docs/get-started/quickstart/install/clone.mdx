@@ -1,4 +1,61 @@
 ---
-title: 'Install with GitHub Clone'
+title: 'Install with git clone'
 description: 'Instruction on how to install g4f on your computer'
 ---
+
+<Steps titleSize="h3">
+<Step title="Install Python & git">
+ G4F requires [`Python`](https://www.python.org/) to run. Ensure that you have Python installed on your system.
+ You can check if you have `Python` installed by running the following command in your terminal:
+```bash
+user@mac-air:~$ python3 --version
+> Python 3.11.6
+```
+ Additionally, make sure you have `git` installed. You can check this by running:
+```bash
+user@mac-air:~$ git --version
+> git version 2.34.1
+```
+</Step>
+<Step title="Clone the g4f repository">
+ You can clone the `g4f` repository using `git`:
+```bash
+git clone https://github.com/g4f/g4f.git
+```
+ This will create a local copy of the `g4f` repository on your machine.
+</Step>
+<Step title="Install dependencies">
+ Navigate into the cloned `g4f` directory and install the required dependencies:
+```bash
+cd g4f
+pip install -r requirements.txt
+```
+ This will install all the necessary packages for `g4f` to run.
+</Step>
+<Step title="Import & run">
+ You can now import `g4f` into your project:
+<Steps>
+<Step title="Import g4f & simple usecase">
+                ```jsx
+                import g4f
+
+                engine = g4f.client.Client()
+
+                completion = engine.chat.completions.create(
+                    model="gpt-3.5-turbo",
+                    messages=[{"role": "user", "content": "Hello"}])
+
+                print(completion.choices[0].message.content)
+                ```
+
+ </Step>
+ <Step title="run the script">
+ ```bash
+user@mac-air:~$ python3 test.py 
+ >>> Hello, how can I be of help today?
+```
+ </Step>
+ </Steps>
+ All set! You can now navigate to [Basic Usage](/docs/get-started/quickstart/use) for further instructions.
+ </Step>
+</Steps>
