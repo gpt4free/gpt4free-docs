@@ -97,7 +97,8 @@
       "group": "Misc",
       "pages": [
         "docs/misc/changelog",
-        "docs/misc/contributing"
+        "docs/misc/contributing",
+        "docs/misc/roadmap"
       ]
     },
     {
