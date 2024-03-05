@@ -54,6 +54,13 @@
         "features/changelog",
         "features/contributing"
       ]
+    },
+    {
+      "group": "ToS",
+      "pages": [
+        "tos/legal_notice",
+        "tos/code_of_conduct"
+      ]
     }
   ],
   "footerSocials": {
