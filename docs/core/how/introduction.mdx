@@ -1,0 +1,133 @@
+---
+title: 'Introduction'
+description: 'Explanation of the inner workings of G4F and its providers'
+---
+<Steps titleSize="h3">
+<Step title="Overview">
+ G4F (GPT-4 Free) is a Python package that provides a unified interface to access various language models and AI services from different providers. It allows users to generate text, images, and more using these models without the need for individual API keys or subscriptions.
+</Step>
+<Step title="Architecture">
+ G4F is built on a modular architecture, consisting of the following main components:
+<Steps>
+<Step title="Client" icon="code">
+ The `Client` class serves as the main entry point for users. It provides a simple and consistent API for accessing different AI capabilities, such as text completion, image generation, and more.
+ 
+ ```python
+from g4f.client import Client
+
+client = Client()
+response = client.chat.completions.create(
+    model="gpt-3.5-turbo",
+    messages=[{"role": "user", "content": "Hello"}]
+)
+print(response.choices[0].message.content)
+```
+</Step>
+<Step title="Providers" icon="gear">
+ Providers are the backbone of G4F. Each provider represents a specific AI service or language model, such as GPT-3.5, GPT-4, or DALL-E. Providers are responsible for handling the communication with the underlying AI service, including authentication, request formatting, and response parsing.
+ 
+ ```python
+from g4f.Provider import ProviderABC
+
+class CustomProvider(ProviderABC):
+    def __init__(self):
+        super().__init__()
+        self.name = "CustomProvider"
+        self.url = "https://api.custom-provider.com"
+    
+    def create_completion(self, model, messages, stream):
+        # Implement provider-specific logic
+        pass
+```
+</Step>
+<Step title="Models" icon="cubes">
+ Models define the specific capabilities and parameters of each AI service or language model. They specify the available endpoints, supported parameters, and any provider-specific configurations.
+ 
+ ```python
+from g4f.models import Model
+
+class CustomModel(Model):
+    def __init__(self):
+        super().__init__()
+        self.name = "custom-model"
+        self.provider = CustomProvider
+        self.params = {
+            "max_tokens": 100,
+            "temperature": 0.7
+        }
+```
+</Step>
+</Steps>
+</Step>
+<Step title="Provider Mechanism">
+ G4F uses a dynamic provider mechanism to allow easy integration of new AI services and models. When a user requests a specific capability (e.g., text completion), G4F performs the following steps:
+<Steps>
+<Step title="Provider Selection" icon="magnifying-glass">
+ G4F selects an appropriate provider based on the requested model and capability. It maintains a registry of available providers and their supported models.
+ 
+ ```python
+from g4f import get_model_and_provider
+
+model, provider = get_model_and_provider("gpt-3.5-turbo", None, stream=False)
+```
+</Step>
+<Step title="Authentication" icon="key">
+ If required by the selected provider, G4F handles the authentication process. This may involve using pre-configured API keys, user-provided credentials, or even automated login flows.
+ 
+ ```python
+from g4f.cookies import set_cookies
+
+set_cookies(".example.com", {
+    "api_key": "your_api_key"
+})
+```
+</Step>
+<Step title="Request Formatting" icon="envelope">
+ G4F formats the user's request according to the requirements of the selected provider and model. This includes constructing the necessary API endpoints, headers, and request payloads.
+ 
+ ```python
+response = provider.create_completion(
+    model,
+    messages,
+    stream,
+    **kwargs
+)
+```
+</Step>
+<Step title="Response Parsing" icon="eye">
+ Once the provider returns a response, G4F parses it and extracts the relevant information. It normalizes the response format to provide a consistent output across different providers.
+ 
+ ```python
+from g4f.typing import CreateResult
+
+result = CreateResult(
+    choices=[
+        {
+            "message": {
+                "content": response_content
+            }
+        }
+    ]
+)
+```
+</Step>
+</Steps>
+</Step>
+<Step title="Benefits">
+ By leveraging the provider mechanism, G4F offers several benefits:
+<Steps>
+<Step title="Simplified Usage" icon="user-check">
+ Users can access multiple AI services and models through a single, unified API. They don't need to manage individual API keys or learn provider-specific interfaces.
+</Step>
+<Step title="Increased Availability" icon="circle-check">
+ If one provider experiences downtime or rate limiting, G4F can automatically switch to an alternative provider, ensuring uninterrupted access to AI capabilities.
+</Step>
+<Step title="Easy Extensibility" icon="circle-plus">
+ Adding support for new AI services or models is straightforward. Developers can create new provider classes and model definitions without modifying the core G4F codebase.
+</Step>
+</Steps>
+</Step>
+<Step title="Conclusion">
+ G4F's provider mechanism and modular architecture make it a powerful and flexible tool for accessing various AI services and language models. By abstracting away the complexities of individual providers, G4F enables users to focus on their applications while benefiting from the latest advancements in artificial intelligence.
+</Step>
+</Steps>

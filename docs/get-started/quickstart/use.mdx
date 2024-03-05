@@ -1,4 +1,108 @@
 ---
 title: 'Basic Usage'
-description: 'Instructions on how g4f works, and how to use g4f'
+description: 'Learn how to use g4f in your projects'
 ---
+
+<Steps titleSize="h3">
+<Step title="Text Generation">
+You can generate text using the `g4f.client.Client` class. Here's an example of how to use it:
+
+```python
+from g4f.client import Client
+
+client = Client()
+response = client.chat.completions.create(
+    model="gpt-3.5-turbo",
+    messages=[{"role": "user", "content": "Hello"}],
+    ...
+)
+print(response.choices[0].message.content)
+```
+
+Output:
+```
+Hello! How can I assist you today?
+```
+
+The `model` parameter specifies the model to use for text generation. You can use different providers by setting the `provider` parameter:
+
+```python
+response = client.chat.completions.create(
+    model="gpt-3.5-turbo",
+    messages=[{"role": "user", "content": "Hello"}],
+    provider=g4f.Provider.You
+)
+```
+
+</Step>
+
+<Step title="Image Generation">
+You can also generate images using `g4f`. Here's an example:
+
+```python
+from g4f.client import Client
+
+client = Client()
+response = client.images.generate(
+  model="gemini",
+  prompt="a white siamese cat",
+  ...
+)
+image_url = response.data[0].url
+```
+
+This will generate an image of a white siamese cat using the Gemini model from Google.
+
+</Step>
+
+<Step title="Asynchronous Usage">
+`g4f` also supports asynchronous usage for better performance. You can use the `AsyncClient` class for this:
+
+```python
+from g4f.client import AsyncClient
+
+async def main():
+    async with AsyncClient() as client:
+        response = await client.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=[{"role": "user", "content": "Hello"}]
+        )
+        print(response.choices[0].message.content)
+
+import asyncio
+asyncio.run(main())
+```
+
+This allows you to make multiple requests concurrently and improve the overall performance of your application.
+
+</Step>
+
+<Step title="Configuration">
+You can configure `g4f` by setting cookies, access tokens, or using a proxy. Here's an example of how to set cookies:
+
+```python
+from g4f.cookies import set_cookies
+
+set_cookies(".bing.com", {
+  "_U": "cookie value"
+})
+set_cookies("chat.openai.com", {
+  "access_token": "token value"
+})
+set_cookies(".google.com", {
+  "__Secure-1PSID": "cookie value"
+})
+
+...
+```
+
+You can also set a proxy globally using an environment variable:
+
+```bash
+export G4F_PROXY="http://host:port"
+```
+
+</Step>
+</Steps>
+
+For more advanced usage and examples, refer to the [Full Documentation](/docs).

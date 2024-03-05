@@ -88,8 +88,6 @@
           "group": "How does g4f work ?",
           "pages": [
             "docs/core/how/introduction",
-            "docs/core/how/bypass",
-            "docs/core/how/provider_system",
             "docs/core/how/reverse"
           ]
         }

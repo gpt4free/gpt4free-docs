@@ -1,0 +1,75 @@
+---
+title: 'Using Proxies with G4F'
+description: 'Learn how to configure and use proxies with the G4F library'
+---
+
+<Steps titleSize="h3">
+<Step title="Set the Proxy Environment Variable">
+ You can set a global proxy for all providers in G4F by setting the `G4F_PROXY` environment variable. This can be useful if you want to hide or change your IP address for the providers.
+ 
+ To set the proxy environment variable, run the following command in your terminal:
+
+<Tabs>
+<Tab title="macOS/Linux">
+```bash
+export G4F_PROXY="http://host:port"
+```
+</Tab>
+<Tab title="Windows">
+```bash
+set G4F_PROXY=http://host:port
+```
+</Tab>
+</Tabs>
+
+ Replace `http://host:port` with the actual proxy URL and port you want to use.
+</Step>
+
+<Step title="Configure Proxies in the Client">
+ You can also configure proxies directly in the G4F client. When creating a new `Client` instance, you can pass the `proxies` parameter to specify the proxy settings.
+
+```python
+from g4f.client import Client
+
+proxies = {
+    "all": "http://host:port",
+    "https": "https://host:port"
+}
+
+client = Client(proxies=proxies)
+```
+
+ The `proxies` parameter accepts a dictionary with the following keys:
+ - `"all"`: Specifies the proxy URL for all requests.
+ - `"https"`: Specifies the proxy URL for HTTPS requests only.
+
+ If both `"all"` and `"https"` are provided, the `"https"` proxy will be used for HTTPS requests, and the `"all"` proxy will be used for other requests.
+</Step>
+
+<Step title="Retrieve the Configured Proxy">
+ You can retrieve the currently configured proxy using the `get_proxy()` method of the `Client` instance.
+
+```python
+proxy = client.get_proxy()
+print(proxy)
+```
+
+ This will return the proxy URL if one is configured, either through the `proxies` parameter or the `G4F_PROXY` environment variable. If no proxy is configured, it will return `None`.
+</Step>
+
+<Step title="Use the Configured Proxy">
+ Once you have configured the proxy, it will be automatically used for all requests made through the G4F client. You can proceed with using the various methods provided by the client, such as `client.chat.completions.create()`, and the requests will be routed through the specified proxy.
+
+```python
+completion = client.chat.completions.create(
+    model="gpt-3.5-turbo",
+    messages=[{"role": "user", "content": "Hello"}]
+)
+print(completion.choices[0].message.content)
+```
+
+ The above code will send the request through the configured proxy, ensuring that your IP address is hidden or changed as per the proxy settings.
+</Step>
+</Steps>
+
+By following these steps, you can easily configure and use proxies with the G4F library to protect your privacy and bypass any restrictions based on your IP address.
