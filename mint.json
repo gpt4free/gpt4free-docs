@@ -25,19 +25,14 @@
   ],
   "anchors": [
     {
-      "name": "Documentation",
-      "icon": "book-open-cover",
+      "name": "Github",
+      "icon": "github",
       "url": "https://github.com/xtekky/gpt4free"
     },
     {
-      "name": "Community",
-      "icon": "slack",
-      "url": "https://github.com/xtekky/gpt4free"
-    },
-    {
-      "name": "Blog",
-      "icon": "newspaper",
-      "url": "https://github.com/xtekky/gpt4free"
+      "name": "Issues",
+      "icon": "envelope",
+      "url": "https://github.com/xtekky/gpt4free/issues"
     }
   ],
   "navigation": [
@@ -45,14 +40,44 @@
       "group": "Get Started",
       "pages": [
         "get-started/introduction",
-        "get-started/quickstart"
+        {
+          "group": "Quickstart",
+          "pages": [
+            "get-started/quickstart/install",
+            "get-started/quickstart/use"
+          ]
+        }
       ]
     },
     {
-      "group": "Features",
+      "group": "Core",
       "pages": [
-        "features/changelog",
-        "features/contributing"
+        {
+          "group": "Usage",
+          "pages": [
+            "core/usage/main",
+            "core/usage/inference",
+            "core/usage/image",
+            "core/usage/providers",
+            "core/usage/models",
+            "core/usage/proxy",
+            "core/usage/auth_cookies",
+            "core/usage/legacy"
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Development",
+      "pages": [
+        "development/how_g4f_works"
+      ]
+    },
+    {
+      "group": "Misc",
+      "pages": [
+        "misc/changelog",
+        "misc/contributing"
       ]
     },
     {
