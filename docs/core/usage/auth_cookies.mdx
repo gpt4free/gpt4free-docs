@@ -1,4 +1,115 @@
 ---
-title: "Auth & Cookies"
-description: 'Instructions on how to use cookies and authentication with the providers within the g4f package'
+title: "Cookies & Authentication"
+description: "Learn how to add cookies and authenticate with the API"
 ---
+
+## Overview
+
+Some providers require authentication or cookies to access their API. This guide will show you how to set cookies and authenticate with these providers in the `g4f` package.
+
+## Setting Cookies
+
+<Accordion title="Setting Cookies for a Provider">
+To set cookies for a specific provider, you can use the `set_cookies` function from the `g4f.cookies` module:
+
+```python
+from g4f.cookies import set_cookies
+
+set_cookies(".bing.com", {
+  "_U": "cookie value"
+})
+set_cookies(".google.com", {
+  "__Secure-1PSID": "cookie value" 
+})
+```
+
+The `set_cookies` function takes two arguments:
+1. The domain name of the provider (e.g. `.bing.com`, `.google.com`)
+2. A dictionary of cookie names and values
+
+Make sure to set the correct domain and provide the necessary cookie values required by the provider.
+</Accordion>
+
+## Authentication
+
+<Accordion title="Authenticating with a Provider">
+Some providers like OpenAI require an access token for authentication. You can pass the access token when creating a completion:
+
+```python
+from g4f.Provider import OpenaiChat
+
+response = OpenaiChat.create_completion(
+    model="gpt-3.5-turbo",
+    messages=[{"role": "user", "content": "Hello"}],
+    auth="your_access_token_here"
+)
+```
+
+Use the `auth` parameter and provide your access token as a string.
+</Accordion>
+
+<Accordion title="Automatically Reading Cookies">
+The `g4f` package can automatically read cookies from your web browser using the `browser_cookie3` library.
+
+<Note>
+Make sure you have logged into the provider's website on your browser for this to work.
+</Note>
+
+It supports reading cookies from the following browsers:
+- Google Chrome 
+- Microsoft Edge
+- Mozilla Firefox
+- Opera
+- Brave
+
+No additional configuration is needed. The package will attempt to read the required cookies automatically.
+</Accordion>
+
+## Troubleshooting
+
+<Accordion title="Cookies Not Being Set">
+If the cookies are not being set properly, make sure:
+- You are using the correct domain name 
+- The cookie names and values are accurate
+- You have the necessary permissions to set cookies
+</Accordion>
+
+<Accordion title="Authentication Errors">
+If you encounter authentication errors, double check that:
+- Your access token is valid and not expired
+- You are passing the token in the `auth` parameter
+- The provider supports authentication via access tokens
+</Accordion>
+
+## Example
+
+Here's an example of setting cookies and using authentication:
+
+```python
+from g4f.cookies import set_cookies
+from g4f.Provider import Bing, OpenaiChat
+
+# Set cookies
+set_cookies(".bing.com", {
+  "_U": "your_bing_cookie_here"
+})
+
+# Create completion with Bing
+response = Bing.create_completion(
+    model="gpt-4",
+    messages=[{"role": "user", "content": "Hello Bing"}]
+)
+
+# Create completion with OpenAI authentication
+response = OpenaiChat.create_completion(
+    model="gpt-3.5-turbo",
+    messages=[{"role": "user", "content": "Hello OpenAI"}],
+    auth="your_openai_access_token"
+)
+```
+
+By setting the appropriate cookies and providing authentication, you can successfully use providers that require them.
+
+## Conclusion
+
+Adding cookies and authentication is straightforward with the `g4f` package. Use the `set_cookies` function to manually set cookies or let the package automatically read them from your browser. For providers needing authentication, pass your access token using the `auth` parameter.

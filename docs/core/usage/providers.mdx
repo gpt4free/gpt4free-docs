@@ -1,0 +1,88 @@
+---
+title: "Providers"
+description: "Explore the various providers supported by G4F for text completion and image generation."
+---
+
+<Card title="Providers" icon="server">
+  G4F supports a wide range of providers for text completion and image generation, giving you flexibility and options to suit your needs.
+</Card>
+
+## About the Providers
+
+G4F integrates with multiple providers to offer a comprehensive set of capabilities for text completion and image generation. Each provider has its own strengths, limitations, and requirements. Let's take a closer look at the supported providers.
+
+<AccordionGroup>
+  <Accordion title="OpenAI" icon="openai">
+    OpenAI is a leading provider of AI models and APIs. G4F supports the following OpenAI models:
+    
+    - GPT-3.5 Turbo
+    - GPT-4
+    
+    OpenAI provides high-quality text completion and is known for its advanced language models.
+    
+    <Info>
+      To use OpenAI models with G4F, you need to provide an API key. You can obtain an API key from the OpenAI website.
+    </Info>
+  </Accordion>
+  
+  <Accordion title="Anthropic" icon="robot">
+    Anthropic offers the Claude model, which is known for its conversational abilities and coherence. G4F supports the Claude v2 model.
+    
+    <Info>
+      Anthropic requires an API key to access their models. Make sure to obtain an API key from Anthropic before using their provider with G4F.
+    </Info>
+  </Accordion>
+  
+  <Accordion title="Bing" icon="microsoft">
+    Bing, powered by Microsoft, provides the GPT-4 model for text completion. It offers high-quality results and is accessible through G4F.
+    
+    <Warning>
+      To use Bing with G4F, you need to provide the necessary authentication cookies. Refer to the [Authentication](/docs/core/usage/auth_cookies) section for more details.
+    </Warning>
+  </Accordion>
+  
+  <Accordion title="Google Gemini" icon="google">
+    Google Gemini is a powerful image generation provider supported by G4F. It allows you to create visually stunning images based on text prompts.
+    
+    <Tip>
+      Google Gemini is available for free accounts with IP addresses outside Europe.
+    </Tip>
+  </Accordion>
+</AccordionGroup>
+
+## Provider Capabilities
+
+<CardGroup cols={2}>
+  <Card title="Text Completion" icon="text">
+    Most providers supported by G4F offer text completion capabilities. You can generate human-like text based on prompts or continue existing conversations.
+  </Card>
+  
+  <Card title="Image Generation" icon="image">
+    Select providers, such as Google Gemini and Bing, support image generation. You can create images from textual descriptions using these providers.
+  </Card>
+</CardGroup>
+
+<Info>
+  For a comprehensive list of supported providers and their capabilities, refer to the [Providers List](/docs/core/providers/provider_list) section.
+</Info>
+
+## Choosing a Provider
+
+When choosing a provider, consider the following factors:
+
+- Capabilities: Determine whether you need text completion, image generation, or both.
+- Quality: Assess the quality of the generated output based on your requirements.
+- Pricing: Consider the pricing model and costs associated with each provider.
+- Authentication: Check if the provider requires an API key or authentication cookies.
+
+<Tip>
+  Experiment with different providers to find the one that best suits your needs. G4F makes it easy to switch between providers with minimal code changes.
+</Tip>
+
+## Conclusion
+
+G4F offers a diverse range of providers for text completion and image generation. Each provider has its own strengths and requirements. By understanding the capabilities and considerations of each provider, you can make an informed decision and leverage the power of AI in your applications.
+
+<Info>
+  Remember to review the provider-specific documentation and guidelines to ensure proper usage and compliance with their terms of service.
+</Info>

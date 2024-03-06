@@ -1,0 +1,81 @@
+---
+title: "Models"
+description: "Explore the different models supported by G4F for text generation and image creation."
+---
+
+<Card title="Models in G4F" icon="cubes">
+  G4F supports a wide range of models for text generation and image creation, allowing you to choose the best model for your specific use case.
+</Card>
+
+## About Models
+
+In G4F, models refer to the underlying AI systems that power text generation and image creation. Each model has its own strengths, capabilities, and characteristics. G4F provides access to a variety of models from different providers, giving you the flexibility to select the most suitable model for your needs.
+
+<Accordion title="Why are models important?">
+  Models play a crucial role in determining the quality, style, and capabilities of the generated text or images. Different models are trained on specific datasets and have their own unique architectures, resulting in distinct outputs and performance characteristics.
+</Accordion>
+
+## Supported Models
+
+G4F supports a wide range of models for text generation and image creation. Here are some of the key models available:
+
+<CardGroup>
+  <Card title="GPT-3.5" icon="openai">
+    A powerful language model developed by OpenAI, capable of generating human-like text across various domains.
+  </Card>
+  <Card title="GPT-4" icon="openai">
+    The latest and most advanced language model from OpenAI, offering enhanced capabilities and improved performance.
+  </Card>
+  <Card title="DALL-E" icon="openai">
+    A state-of-the-art image generation model that can create realistic images and artwork from textual descriptions.
+  </Card>
+  <Card title="Stable Diffusion" icon="stable-diffusion">
+    An open-source image generation model known for its ability to generate high-quality images with fine-grained control.
+  </Card>
+</CardGroup>
+
+<Tip>
+  Experiment with different models to find the one that best suits your specific use case and requirements.
+</Tip>
+
+## Model Selection
+
+When using G4F, you have the flexibility to choose the model you want to use for text generation or image creation. The `model` parameter in the API allows you to specify the desired model.
+
+```python
+response = client.completions.create(
+    model="gpt-3.5-turbo",
+    messages=[{"role": "user", "content": "Hello!"}]
+)
+```
+
+<Info>
+  If no model is specified, G4F will use the default model set in the configuration.
+</Info>
+
+## Model Availability
+
+The availability of models may vary depending on the provider and your account permissions. Some models, such as GPT-4, may require special access or a paid subscription.
+
+<Tip>
+  Check the documentation of the specific provider to learn more about model availability and any associated requirements.
+</Tip>
+
+## Model Performance
+
+The performance of models can vary depending on factors such as the complexity of the task, the quality and size of the training data, and the specific architecture of the model. It's important to consider the trade-offs between model performance and other factors like inference speed and resource consumption.
+
+<Accordion title="Factors Affecting Model Performance">
+  - Training data quality and size
+  - Model architecture and size
+  - Task complexity and domain
+  - Hardware and resource constraints
+</Accordion>
+
+## Conclusion
+
+G4F provides access to a diverse range of models for text generation and image creation, empowering you to choose the most suitable model for your specific needs. By understanding the characteristics and capabilities of different models, you can make informed decisions and achieve the best results in your projects.
+
+<Warning>
+  Always consider the ethical implications and potential biases of the models you use, and ensure that the generated content aligns with your intended use case and complies with relevant guidelines and regulations.
+</Warning>

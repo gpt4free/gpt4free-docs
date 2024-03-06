@@ -1,4 +1,187 @@
 ---
 title: "Image Generation"
-description: 'Instructions on how to use g4f to generate AI images'
+description: "Learn how to generate images using the G4F library and various image generation providers."
 ---
+
+<Card title="Image Generation" icon="image">
+  Generate stunning images using the power of AI with G4F's image generation capabilities.
+</Card>
+
+## Introduction
+
+G4F provides a simple and intuitive way to generate images using different image generation providers. With just a few lines of code, you can create visually appealing images based on text prompts.
+
+<Info>
+  To unleash the full potential of image generation, ensure you have installed the necessary dependencies by running:
+  ```bash
+  pip install g4f[image]
+  ```
+</Info>
+## Supported Providers
+
+G4F supports the following image generation providers:
+
+<CardGroup cols={2}>
+  <Card title="Bing" icon="microsoft">
+    Utilizes Microsoft's Image Creator for image generation.
+  </Card>
+  <Card title="Google Gemini" icon="google">
+    Available for free accounts with IP addresses outside Europe.
+  </Card>
+  <Card title="OpenAI Chat with GPT-4" icon="robot">
+    Accessible for users with a Plus subscription.
+  </Card>
+</CardGroup>
+
+## Generating Images
+
+To generate images using G4F, follow these steps:
+
+<Steps>
+  <Step title="Import the necessary modules" stepNumber={1}>
+    ```jsx
+    from g4f.client   import Client
+    from g4f.Provider import BingCreateImages, OpenaiChat, Gemini
+
+    client = Client(
+        image_provider=Gemini,
+        api_key='api-key if needed'
+        ...
+    )
+    ```
+
+    <Info>
+      When using the `OpenaiChat` provider, you need to [**provide an access token**](/docs/core/usage/auth_cookies) from a Plus user. 
+    </Info>
+  </Step>
+  
+  <Step title="Set up the request for image creation" stepNumber={2}>
+    ```jsx
+    response = client.images.generate(
+        model="dall-e-3",
+        prompt="a white siamese cat",
+        ...
+    )
+    ```
+
+    ___
+    
+    <Card title="Request Parameters" icon="sliders">
+      <ParamField path="model" type="str" default="g4f.models.default">
+        The model to use for image generation. Defaults to the default model.
+      </ParamField>
+      
+      <ParamField path="prompt" type="text">
+        The text prompt to use for image generation.
+      </ParamField>
+      
+      <ParamField path="kwargs" type="json">
+        Additional keyword arguments to pass to the image generation provider.
+      </ParamField>
+    </Card>
+  </Step>
+  
+  <Step title="Get image links from the response" stepNumber={3}>
+    ```jsx
+    image_url = response.data[0].url
+    print(image url) 
+    ```
+    
+  </Step>
+  <Step title="Image Variations" stepNumber={4}>
+    ```jsx
+    response = client.images.create_variation(
+        image=open("cat.jpg", "rb"),
+        model="bing",
+        ...
+    )
+
+    image_url = response.data[0].url
+    ```
+
+    ___
+    
+    <Card title="Request Parameters" icon="sliders">
+      <ParamField path="image" type="file">
+        The image to use for creating variations.
+      </ParamField>
+      
+      <ParamField path="model" type="model" default="ImageType">
+        The model to use for image generation. Defaults to the default model.
+      </ParamField>
+      
+      <ParamField path="kwargs" type="json">
+        Additional keyword arguments to pass to the image generation provider.
+      </ParamField>
+    </Card>
+    
+  </Step>
+</Steps>
+
+<Tip>
+  Experiment with different providers and prompts to generate a variety of images!
+</Tip>
+
+## Example
+
+Here's an example of generating an image using the Bing provider:
+
+```jsx
+from g4f.client import client
+
+client = Client()
+
+response = client.images.generate(
+    model="dall-e-3",
+    prompt="a white siamese cat",
+    ...
+)
+
+print(response.data[0].url)
+```
+
+<Frame>
+  <img src="https://raw.githubusercontent.com/xtekky/gpt4free/main/docs/cat.jpeg" alt="Generated Image" />
+  <img src="https://raw.githubusercontent.com/xtekky/gpt4free/main/docs/cat.webp" />
+</Frame>
+
+## Chat with images
+
+<Steps>
+  <Step title="Import the necessary modules" stepNumber={1}>
+    ```jsx
+    from g4f.client import Client
+    from g4f.Provider.GeminiPro import GeminiPro
+
+    client = Client(
+      api_key="...",
+      provider=GeminiPro
+    )
+    ```
+    <Info>
+      When using the `GeminiPro` provider, you need to [**provide an api-key**](/docs/core/usage/auth_cookies). 
+    </Info>
+  </Step>
+  <Step title="Chat with your image" stepNumber={1}>
+    ```jsx
+    response = client.chat.completions.create(
+        model="gemini-pro-vision",
+        messages=[{"role": "user", "content": "What can you see on this image"}],
+        image=open("image.png", "rb"))
+
+    print(response.choices[0].message.content)
+    ```
+    ```bash
+    user@mac-air:~$ python3 main.py
+    >>> I can see a bird flying in the tropical forest
+    ```
+  </Step>
+</Steps>
+
+## Conclusion
+
+G4F makes it easy to generate images using various providers. With just a few lines of code, you can create stunning visuals based on text prompts. Explore the different providers and unleash your creativity!
+
+<Tip>
+  Remember to handle the generated images appropriately and respect copyright and usage rights.
+</Tip>

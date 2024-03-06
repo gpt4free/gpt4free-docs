@@ -1,0 +1,102 @@
+---
+title: "Bypassing and Streaming with curl_cffi"
+description: "Learn how to bypass restrictions and stream responses using the curl_cffi library in g4f."
+---
+
+# Bypassing and Streaming with curl_cffi
+
+G4F leverages the powerful `curl_cffi` library to enable bypassing restrictions and streaming responses from various providers. This document explains how `curl_cffi` works under the hood and how we utilize it in g4f to enhance the functionality.
+
+## What is curl_cffi?
+
+`curl_cffi` is a Python library that provides a convenient interface to the libcurl C library. It allows making HTTP requests with advanced options and fine-grained control over the request and response handling.
+
+<Accordion title="Key Features of curl_cffi">
+- Supports all HTTP methods (GET, POST, PUT, DELETE, etc.)
+- Handles cookies and authentication
+- Allows setting custom headers and request bodies
+- Provides proxy support
+- Enables streaming responses
+</Accordion>
+
+## How curl_cffi Works
+
+Under the hood, `curl_cffi` uses the libcurl C library to perform the actual HTTP requests. It provides a Pythonic interface to interact with libcurl, abstracting away the low-level details.
+
+<Steps>
+  <Step title="Step 1: Initialize Session">
+    Create a `Session` object from `curl_cffi.requests` to manage the HTTP session.
+  </Step>
+  <Step title="Step 2: Configure Request">
+    Set the desired options for the request, such as URL, method, headers, cookies, etc.
+  </Step>
+  <Step title="Step 3: Send Request">
+    Call the appropriate method (`get()`, `post()`, etc.) on the `Session` object to send the request.
+  </Step>
+  <Step title="Step 4: Handle Response">
+    Process the response returned by the server, which can be accessed through the `Response` object.
+  </Step>
+</Steps>
+
+## Bypassing with curl_cffi in G4F
+
+G4F takes advantage of `curl_cffi`'s capabilities to bypass certain restrictions imposed by providers. Here's how it works:
+
+<Accordion title="Bypassing Cloudflare">
+  Some providers use Cloudflare protection to prevent automated requests. G4F uses `curl_cffi` along with a headless browser (e.g., Selenium) to solve the Cloudflare challenge and obtain the necessary cookies and headers to make successful requests.
+
+  ```python
+  from g4f.requests import get_session_from_browser
+
+  session = get_session_from_browser(url, webdriver, proxy)
+  ```
+</Accordion>
+
+<Accordion title="Impersonating Browsers">
+  To mimic human-like behavior and avoid detection, G4F can impersonate popular browsers like Chrome or Firefox. `curl_cffi` allows setting custom user agent strings and headers to disguise the requests as originating from a browser.
+
+  ```python 
+  session = Session(
+    headers=headers,
+    impersonate="chrome110"
+  )
+  ```
+</Accordion>
+
+## Streaming Responses with curl_cffi in G4F
+
+G4F leverages `curl_cffi`'s streaming capabilities to handle responses that are delivered in chunks. This is particularly useful for providers that support streaming, as it allows processing the response data incrementally without waiting for the entire response to be received.
+
+<CodeGroup>
+```python StreamResponse
+class StreamResponse:
+    def __init__(self, inner: Response):
+        self.inner = inner
+
+    async def iter_lines(self):
+        async for line in self.inner.aiter_lines():
+            yield line
+```
+
+```python StreamSession
+class StreamSession(AsyncSession):
+    def request(self, method: str, url: str, **kwargs):
+        return StreamResponse(super().request(method, url, stream=True, **kwargs))
+```
+</CodeGroup>
+
+<Note>
+The `StreamResponse` and `StreamSession` classes in G4F wrap the `curl_cffi` response and session objects, respectively, to provide a convenient interface for handling streaming responses.
+</Note>
+
+## Conclusion
+
+By leveraging the power of `curl_cffi`, G4F is able to bypass restrictions, impersonate browsers, and handle streaming responses efficiently. This enables seamless integration with various providers and enhances the overall functionality of the library.
+
+<Tip>
+Make sure to install the `curl_cffi` package to take advantage of these features in G4F:
+
+```bash
+pip install curl_cffi
+```
+</Tip>
