@@ -81,6 +81,7 @@
             "docs/core/usage/models",
             "docs/core/usage/proxy",
             "docs/core/usage/auth_cookies",
+            "docs/core/usage/local",
             "docs/core/usage/legacy"
           ]
         },
