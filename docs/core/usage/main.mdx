@@ -42,20 +42,40 @@ Hello! As an AI language model, I don't have feelings, but I'm functioning prope
 
 You can customize the generated text by specifying additional parameters:
 
-<ParamField path="model" type="string">
-  The name of the language model to use for text generation.
+<ParamField path="proxy" type="string">
+  The proxy to use for the API request. Defaults to `None`.
 </ParamField>
 
-<ParamField path="messages" type="list">
-  A list of message objects representing the conversation history.
-</ParamField>
-
-<ParamField path="temperature" type="float">
-  Controls the randomness of the generated text. Higher values result in more random output.
+<ParamField path="response_format" type="dict">
+  The format of the response from the API. Defaults to `None`.
 </ParamField>
 
 <ParamField path="max_tokens" type="integer">
-  The maximum number of tokens to generate in the response.
+  The maximum number of tokens to generate in the response. Defaults to `None`.
+</ParamField>
+
+<ParamField path="stop" type="list[string] | string">
+  A list of strings or a single string to stop the generation at. Defaults to `None`.
+</ParamField>
+
+<ParamField path="api_key" type="string">
+  The API key to use for the request. Defaults to `None`.
+</ParamField>
+
+<ParamField path="ignored" type="list[string]">
+  A list of strings to ignore in the response. Defaults to `None`.
+</ParamField>
+
+<ParamField path="ignore_working" type="bool">
+  Whether to ignore the working status of the provider. Defaults to `False`.
+</ParamField>
+
+<ParamField path="ignore_stream" type="bool">
+  Whether to ignore the stream status of the provider. Defaults to `False`.
+</ParamField>
+
+<ParamField path="kwargs" type="Any">
+  Additional keyword arguments to pass to the API request.
 </ParamField>
 
 ## Image Generation
