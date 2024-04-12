@@ -2,6 +2,7 @@
 title: "Advanced Usage"
 description: "g4f advanced usage"
 ---
+____
 
 In [Basic Usage](/docs/get-started/quickstart/use) we already discussed, how  to use `g4f` to generate Completions.
 
@@ -20,12 +21,13 @@ for completion in chat_completion:
     print(completion.choices[0].delta.content or "", end="", flush=True)
 ```
 
-Lets now dive into more advanced usage of `g4f`. The `create` function has various additional parameters that can be used to customise the completions generated.
+## The `completions.create(...)` function
 
-`create(...)` additional parameters
+Lets now dive into more advanced usage of `g4f`. The `create` function has various additional parameters that can be used to customise the completions generated.
+### `create(...)` additional parameters
 
 <ParamField path="proxy" type="string" default="None">
-  The proxy to use for the API request mode on proxies can be found [here](/docs/core/usage/proxy).
+  The proxy to use for the API request, more on proxies can be found [here](/docs/core/usage/proxy).
 
   ```jsx
   chat_completion = client.chat.completions.create(...
@@ -70,3 +72,46 @@ Setting to **`{ "type": "json_object" }` enables JSON mode**, which guarantees t
 <ParamField path="kwargs" type="Any">
   Additional keyword arguments to pass to the API request.
 </ParamField>
+
+## Provider rotating in `g4f`
+
+`g4f` can be a bit buggy sometimes and cause you some trouble. You can create your own providers list and pass it with `RetryProvider` to `Client` to make `g4f` more stable.
+
+
+```jsx
+from g4f.client   import Client
+from g4f.Provider import (
+  ProviderA,
+  ProviderB,
+  ProviderC,
+  RetryProvider
+)
+
+import g4f
+
+client = Client(
+    provider = RetryProvider([
+        ProviderA,
+        ProviderB,
+        ProviderC
+    ])
+)
+
+...
+```
+
+`RetryProvider` will try to use the first provider in the list, if it fails, it will try the next one, and so on. Ensuring a higher chance of success.
+If you wish to use a single provider with retry use it like so:
+
+```jsx
+from g4f.client   import Client
+from g4f.Provider import OpenaiChat, RetryProvider
+import g4f
+
+client = Client(
+    provider = RetryProvider([OpenaiChat],
+                             single_provider_retry=True, max_retries=5)
+)
+```
+
+This works well if there is a very good provider that fails sometimes.

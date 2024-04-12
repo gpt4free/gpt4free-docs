@@ -2,8 +2,10 @@
 title: 'Basic Usage'
 description: 'Learn how to use g4f in your projects'
 ---
-
 <Note>`g4f` is very similar to the [*OpenAI Python Sdk*](https://github.com/openai/openai-python), the g4f completion syntax was made to work exactly like the sdk with some ClassNames being different.</Note>
+
+
+## The `Client` Class
 
 As of the new `v1` library of the OpenAi sdk, g4f is initialised with the `g4f.client.Client` class.
 
@@ -23,7 +25,7 @@ client = Client(
 )
 ```
 
-`g4f.client.Client` class Params
+#### `Client(...)` Class Arguments
 
 <ParamField path="provider" type="ProviderType" default="None">
   The provider to use for the client. If not specified, the default provider will be used.
@@ -33,6 +35,7 @@ client = Client(
   The image provider provider to use for the client. If not specified, the default provider will be used.
 </ParamField>
 
+## Create completions
 
 Once initialised, you can use the `client` object to create chat completions. Here again, `client.chat.completions.create` works like the OpenAI sdk, with the same parameters.
 
@@ -46,7 +49,11 @@ chat_completion = client.chat.completions.create(
 print(chat_completion.choices[0].message.content or "")
 ```
 
-`client.chat.completions.create` basic Params (For more advanced usage and examples, refer to the [Full Documentation](/docs)):
+### `create(...)` basic Params 
+
+<Note>
+(**For more advanced params and usage** and examples, refer to the [Full Documentation](/docs/core/usage/main))
+</Note>
 
 <ParamField path="messages" type="list" required>
   A list of messages to use for the chat completion. Each message should be a dictionary with the keys `role` and `content`.
@@ -75,6 +82,8 @@ print(chat_completion.choices[0].message.content or "")
   If set, the completion will be *streamed*, i.e. **Tokens will be sent sequentially as soon as generated**.  
   `create` will return a generator.
 </ParamField>
+
+## Stream completions
 
 You may want to use `g4f` with streaming Response, you can do this with `stream=True` in the `client.chat.completions.create` method.
 
@@ -121,4 +130,4 @@ Hi
 ?
 ```
 
-For more advanced usage and examples, refer to the [Full Documentation](/docs).
+For more advanced usage and examples, refer to the [Full Documentation](/docs/core/usage/main).
