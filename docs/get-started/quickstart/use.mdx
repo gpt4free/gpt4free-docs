@@ -49,7 +49,9 @@ print(chat_completion.choices[0].message.content or "")
 `client.chat.completions.create` basic Params (For more advanced usage and examples, refer to the [Full Documentation](/docs)):
 
 <ParamField path="messages" type="list" required>
-
+  A list of messages to use for the chat completion. Each message should be a dictionary with the keys `role` and `content`.
+  It represents the conversation between a user and an assistant.
+  
   <Card>
       <ParamField path="role" type="str" default="system|user|assistant" required></ParamField>
       <ParamField path="content" type="str" required></ParamField>
@@ -66,11 +68,12 @@ print(chat_completion.choices[0].message.content or "")
 </ParamField>
 
 <ParamField path="provider" type="ProviderType" default="Auto">
-  The provider to use for the chat completion
+  The provider to use for the chat completion. Imported from `g4f.Provider.ProviderName`. Different working providers are outlined in the g4f README.
 </ParamField>
 
 <ParamField path="stream" type="bool" default="False">
-  Whether to stream the response, `create` will return a generator.
+  If set, the completion will be *streamed*, i.e. **Tokens will be sent sequentially as soon as generated**.  
+  `create` will return a generator.
 </ParamField>
 
 You may want to use `g4f` with streaming Response, you can do this with `stream=True` in the `client.chat.completions.create` method.

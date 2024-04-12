@@ -1,61 +1,52 @@
 ---
-title: "Basics"
-description: "Learn the fundamentals of using G4F for text generation and image creation."
+title: "Advanced Usage"
+description: "g4f advanced usage"
 ---
 
-<Card title="Getting Started" icon="rocket">
-  Get up and running with G4F in no time! Learn the basics and start generating text and images effortlessly.
-</Card>
+In [Basic Usage](/docs/get-started/quickstart/use) we already discussed, how  to use `g4f` to generate Completions.
 
-## Installation
+**tldr**: we import `Client` from `g4f.client` and create a `Client` to initialise `g4f`. 
+We then use the `client.chat.completions.create` method to generate completions. We can also stream the completion, by setting `stream=True`.
 
-To get started with G4F, you first need to install it using pip:
+```jsx
+from g4f.client import Client
 
-```bash
-pip install -U g4f
+client = Client()
+
+chat_completion = client.chat.completions.create(model="gpt-3.5-turbo",
+    messages=[{"role": "user", "content": "Hello"}], stream=True)
+
+for completion in chat_completion:
+    print(completion.choices[0].delta.content or "", end="", flush=True)
 ```
 
-<Tip>
-  Make sure you have Python 3.10 or higher installed on your system.
-</Tip>
+Lets now dive into more advanced usage of `g4f`. The `create` function has various additional parameters that can be used to customise the completions generated.
 
-## Text Generation
+`create(...)` additional parameters
 
-G4F makes it easy to generate text using various language models. Here's a basic example of how to generate text using the `gpt-3.5-turbo` model:
+<ParamField path="proxy" type="string" default="None">
+  The proxy to use for the API request mode on proxies can be found [here](/docs/core/usage/proxy).
 
-```python
-import g4f
+  ```jsx
+  chat_completion = client.chat.completions.create(...
+      proxy="http://user:password@host:port")
+  ```
 
-response = g4f.ChatCompletion.create(
-    model="gpt-3.5-turbo",
-    messages=[{"role": "user", "content": "Hello! How are you?"}]
-)
-
-print(response)
-```
-
-<Accordion title="Expected Output">
-```
-Hello! As an AI language model, I don't have feelings, but I'm functioning properly and ready to assist you. How may I help you today?
-```
-</Accordion>
-
-You can customize the generated text by specifying additional parameters:
-
-<ParamField path="proxy" type="string">
-  The proxy to use for the API request. Defaults to `None`.
 </ParamField>
 
-<ParamField path="response_format" type="dict">
-  The format of the response from the API. Defaults to `None`.
+<ParamField path="response_format" type="dict" default="None">
+An object specifying the format that the model must output. Compatible with advanced llm's.    
+Setting to **`{ "type": "json_object" }` enables JSON mode**, which guarantees the message the model generates is valid JSON.  
+
+**Important**: when using JSON mode, you must also instruct the model to produce JSON yourself via a system or user message. 
 </ParamField>
 
-<ParamField path="max_tokens" type="integer">
-  The maximum number of tokens to generate in the response. Defaults to `None`.
+<ParamField path="max_tokens" type="integer" default="None">
+  The **maximum number of tokens** that can be generated in the chat completion. The total length of input tokens and generated tokens is limited by the model's context length.
 </ParamField>
 
-<ParamField path="stop" type="list[string] | string">
-  A list of strings or a single string to stop the generation at. Defaults to `None`.
+<ParamField path="stop" type="list[string] | string" default="None">
+  Up to 4 sequences where the API will stop generating further tokens.
 </ParamField>
 
 <ParamField path="api_key" type="string">
@@ -74,128 +65,8 @@ You can customize the generated text by specifying additional parameters:
   Whether to ignore the stream status of the provider. Defaults to `False`.
 </ParamField>
 
+<Warning>You can use kwargs to pass additional parameters like `temperature`, they are **not guaranteed to work**, and depend on how much customisation a certain Provider exposes in his Api.</Warning>
+
 <ParamField path="kwargs" type="Any">
   Additional keyword arguments to pass to the API request.
 </ParamField>
-
-## Image Generation
-
-G4F also supports generating images using various image models. Here's an example of how to generate an image using the `dall-e` model:
-
-```python
-import g4f
-
-response = g4f.ImageGeneration.create(
-    model="dall-e",
-    prompt="a white siamese cat"
-)
-
-image_url = response['data'][0]['url']
-print(image_url)
-```
-
-<Accordion title="Expected Output">
-```
-https://example.com/generated_image.jpg
-```
-</Accordion>
-
-<Frame>
-  <img src="https://example.com/generated_image.jpg" alt="Generated Image" />
-</Frame>
-
-Similar to text generation, you can customize the image generation process:
-
-<ParamField path="model" type="string">
-  The name of the image model to use for generation.
-</ParamField>
-
-<ParamField path="prompt" type="string">
-  A text description of the image you want to generate.
-</ParamField>
-
-<ParamField path="num_images" type="integer">
-  The number of images to generate.
-</ParamField>
-
-<ParamField path="size" type="string">
-  The size of the generated images (e.g., "256x256", "512x512").
-</ParamField>
-
-## Streaming Responses
-
-G4F supports streaming responses for both text and image generation. This allows you to receive the generated content in real-time as it is being produced. Here's an example of streaming text generation:
-
-```python
-import g4f
-
-response = g4f.ChatCompletion.create(
-    model="gpt-3.5-turbo",
-    messages=[{"role": "user", "content": "Tell me a story."}],
-    stream=True
-)
-
-for chunk in response:
-    print(chunk, end="", flush=True)
-```
-
-<Accordion title="Expected Output">
-```
-Once upon a time, in a small village nestled in the mountains, there lived a young girl named Lily. She was known throughout the village for her kindness and her love for animals. Every day, Lily would venture into the nearby forest to explore and play with her animal friends.
-
-One particularly sunny morning, Lily decided to go deeper into the forest than she had ever gone before. As she walked, she stumbled upon a hidden grove filled with beautiful, vibrant flowers. In the center of the grove stood a majestic, ancient tree with a peculiar door carved into its trunk.
-
-Curiosity got the better of Lily, and she cautiously approached the door. With a gentle push, the door creaked open, revealing a magical world beyond. Lily stepped through the doorway and found herself in an enchanted forest, unlike anything she had ever seen before.
-
-...
-```
-</Accordion>
-
-Streaming is also available for image generation:
-
-```python
-import g4f
-
-response = g4f.ImageGeneration.create(
-    model="dall-e",
-    prompt="a majestic landscape",
-    stream=True
-)
-
-for chunk in response:
-    # Process each image chunk as it arrives
-    # You can display or save the partial image here
-    print("Received image chunk:", len(chunk))
-```
-
-## Error Handling
-
-When using G4F, it's important to handle potential errors that may occur during the generation process. Here's an example of how to handle errors:
-
-```python
-import g4f
-
-try:
-    response = g4f.ChatCompletion.create(
-        model="non-existent-model",
-        messages=[{"role": "user", "content": "Hello!"}]
-    )
-except Exception as e:
-    print("An error occurred:", str(e))
-```
-
-<Accordion title="Expected Output">
-```
-An error occurred: Model not found: non-existent-model
-```
-</Accordion>
-
-## Conclusion
-
-You now have a solid foundation for using G4F to generate text and images. Feel free to explore the different models, parameters, and features available to unleash your creativity!
-
-<Tip>
-  Experiment with different prompts, models, and settings to achieve the desired results.
-</Tip>
-
-For more advanced usage and detailed API reference, check out the [G4F Documentation](https://docs.g4f.ai).
