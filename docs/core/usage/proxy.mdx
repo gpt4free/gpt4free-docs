@@ -32,18 +32,18 @@ set G4F_PROXY=http://host:port
 from g4f.client import Client
 
 proxies = {
-    "all": "http://host:port",
-    "https": "https://host:port"
+    "all": "http://user:password@host:port",
+    "https": "https://user:password@host:port"
 }
 
 client = Client(proxies=proxies)
 ```
 
- The `proxies` parameter accepts a dictionary with the following keys:
- - `"all"`: Specifies the proxy URL for all requests.
- - `"https"`: Specifies the proxy URL for HTTPS requests only.
+The `proxies` parameter accepts a dictionary with the following keys:
+- `"all"`: Specifies the proxy URL for all requests.
+- `"https"`: Specifies the proxy URL for HTTPS requests only.
 
- If both `"all"` and `"https"` are provided, the `"https"` proxy will be used for HTTPS requests, and the `"all"` proxy will be used for other requests.
+If both `"all"` and `"https"` are provided, the `"https"` proxy will be used for HTTPS requests, and the `"all"` proxy will be used for other requests.
 </Step>
 
 <Step title="Retrieve the Configured Proxy">

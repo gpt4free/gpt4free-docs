@@ -15,14 +15,14 @@ If you don't have Docker installed, you can download it from the [official Docke
 <Step title="Pull the g4f Docker image">
  You can pull the `g4f` Docker image using the following command:
 ```bash
-docker pull hlohaus789/g4f:latest
+docker pull hlohaus789/g4f
 ```
 This will download the latest version of the g4f Docker image.
 </Step>
 <Step title="Run the g4f Docker container">
  Once the image is pulled, you can run the g4f Docker container with the following command:
 ```bash
-docker run -p 8080:8080 -p 1337:1337 -p 7900:7900 --shm-size="2g" hlohaus789/g4f:latest
+docker run -p 8080:8080 -p 1337:1337 -p 7900:7900 --shm-size="2g" -v ${PWD}/hardir:/app/hardir hlohaus789/g4f:latest
 ```
 This command will start the g4f container and expose the necessary ports.
 </Step>

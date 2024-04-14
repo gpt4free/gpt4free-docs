@@ -32,30 +32,14 @@ pip install -r requirements.txt
 ```
  This will install all the necessary packages for `g4f` to run.
 </Step>
-<Step title="Import & run">
- You can now import `g4f` into your project:
-<Steps>
-<Step title="Import g4f & simple usecase">
-                ```jsx
-                import g4f
+    <Step title="Use g4f">
+            All set ! You can now navigate to [Basic Usage](/docs/get-started/quickstart/use) for further instructions.
 
-                engine = g4f.client.Client()
-
-                completion = engine.chat.completions.create(
-                    model="gpt-3.5-turbo",
-                    messages=[{"role": "user", "content": "Hello"}])
-
-                print(completion.choices[0].message.content)
-                ```
-
- </Step>
- <Step title="run the script">
- ```bash
-user@mac-air:~$ python3 test.py 
- >>> Hello, how can I be of help today?
-```
- </Step>
- </Steps>
- All set! You can now navigate to [Basic Usage](/docs/get-started/quickstart/use) for further instructions.
- </Step>
+          <Card
+            title="Start using g4f"
+            icon="hand"
+            href="/docs/get-started/quickstart/use">
+            Basic Usage Instructions for `g4f`
+        </Card>
+    </Step>
 </Steps>

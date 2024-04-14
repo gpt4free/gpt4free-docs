@@ -2,107 +2,132 @@
 title: 'Basic Usage'
 description: 'Learn how to use g4f in your projects'
 ---
+<Note>`g4f` is very similar to the [*OpenAI Python Sdk*](https://github.com/openai/openai-python), the g4f completion syntax was made to work exactly like the sdk with some ClassNames being different.</Note>
 
-<Steps titleSize="h3">
-<Step title="Text Generation">
-You can generate text using the `g4f.client.Client` class. Here's an example of how to use it:
 
-```python
+## The `Client` Class
+
+As of the new `v1` library of the OpenAi sdk, g4f is initialised with the `g4f.client.Client` class.
+
+```jsx
 from g4f.client import Client
 
 client = Client()
-response = client.chat.completions.create(
-    model="gpt-3.5-turbo",
-    messages=[{"role": "user", "content": "Hello"}],
-    ...
-)
-print(response.choices[0].message.content)
-```
+````
 
-Output:
-```
-Hello! How can I assist you today?
-```
+The `Client`class accepts several arguments, you can set a default provider there. More on the `Provider` structure of `g4f` further down.
+```jsx
+from g4f.client   import Client
+from g4f.Provider import You
 
-The `model` parameter specifies the model to use for text generation. You can use different providers by setting the `provider` parameter:
-
-```python
-response = client.chat.completions.create(
-    model="gpt-3.5-turbo",
-    messages=[{"role": "user", "content": "Hello"}],
-    provider=g4f.Provider.You
+client = Client(
+    provider = You
 )
 ```
 
-</Step>
+#### `Client(...)` Class Arguments
 
-<Step title="Image Generation">
-You can also generate images using `g4f`. Here's an example:
+<ParamField path="provider" type="ProviderType" default="None">
+  The provider to use for the client. If not specified, the default provider will be used.
+</ParamField>
 
-```python
+<ParamField path="image_provider" type="ImageProvider" default="None">
+  The image provider provider to use for the client. If not specified, the default provider will be used.
+</ParamField>
+
+## Create completions
+
+Once initialised, you can use the `client` object to create chat completions. Here again, `client.chat.completions.create` works like the OpenAI sdk, with the same parameters.
+
+
+```jsx
+chat_completion = client.chat.completions.create(
+    model="gpt-3.5-turbo",
+    messages=[{"role": "user", "content": "Hello"}],
+)
+
+print(chat_completion.choices[0].message.content or "")
+```
+
+### `create(...)` basic Params 
+
+<Note>
+(**For more advanced params and usage** and examples, refer to the [Full Documentation](/docs/core/usage/main))
+</Note>
+
+<ParamField path="messages" type="list" required>
+  A list of messages to use for the chat completion. Each message should be a dictionary with the keys `role` and `content`.
+  It represents the conversation between a user and an assistant.
+  
+  <Card>
+      <ParamField path="role" type="str" default="system|user|assistant" required></ParamField>
+      <ParamField path="content" type="str" required></ParamField>
+  </Card>
+
+  ```json
+  [
+    {
+      "role": "user",
+      "content": "Hello"
+    }
+  ]
+  ```
+</ParamField>
+
+<ParamField path="provider" type="ProviderType" default="Auto">
+  The provider to use for the chat completion. Imported from `g4f.Provider.ProviderName`. Different working providers are outlined in the g4f README.
+</ParamField>
+
+<ParamField path="stream" type="bool" default="False">
+  If set, the completion will be *streamed*, i.e. **Tokens will be sent sequentially as soon as generated**.  
+  `create` will return a generator.
+</ParamField>
+
+## Stream completions
+
+You may want to use `g4f` with streaming Response, you can do this with `stream=True` in the `client.chat.completions.create` method.
+
+```jsx
+chat_completion = client.chat.completions.create(model='gpt-3.5-turbo',
+    messages=[{"role": "user", "content": "Hello"}], 
+    stream=True
+)
+
+for completion in chat_completion:
+    print(completion.choices[0].delta.content or "")
+```
+
+If you dont want the words to start at a newline every time:
+```jsx
+for completion in chat_completion:
+    print(completion.choices[0].delta.content or "", end="", flush=True)
+```
+
+Full g4f example:
+  
+```jsx
 from g4f.client import Client
 
 client = Client()
-response = client.images.generate(
-  model="gemini",
-  prompt="a white siamese cat",
-  ...
-)
-image_url = response.data[0].url
+
+chat_completion = client.chat.completions.create(model="gpt-3.5-turbo",
+    messages=[{"role": "user", "content": "Hello"}], stream=True)
+
+for completion in chat_completion:
+    print(completion.choices[0].delta.content or "", end="", flush=True)
+```
+```
+user@mac-air:~$ python3 main.py
+Hi
+ there
+!
+ How
+ can
+ I
+ assist
+ you
+ today
+?
 ```
 
-This will generate an image of a white siamese cat using the Gemini model from Google.
-
-</Step>
-
-<Step title="Asynchronous Usage">
-`g4f` also supports asynchronous usage for better performance. You can use the `AsyncClient` class for this:
-
-```python
-from g4f.client import AsyncClient
-
-async def main():
-    async with AsyncClient() as client:
-        response = await client.chat.completions.create(
-            model="gpt-3.5-turbo",
-            messages=[{"role": "user", "content": "Hello"}]
-        )
-        print(response.choices[0].message.content)
-
-import asyncio
-asyncio.run(main())
-```
-
-This allows you to make multiple requests concurrently and improve the overall performance of your application.
-
-</Step>
-
-<Step title="Configuration">
-You can configure `g4f` by setting cookies, access tokens, or using a proxy. Here's an example of how to set cookies:
-
-```python
-from g4f.cookies import set_cookies
-
-set_cookies(".bing.com", {
-  "_U": "cookie value"
-})
-set_cookies("chat.openai.com", {
-  "access_token": "token value"
-})
-set_cookies(".google.com", {
-  "__Secure-1PSID": "cookie value"
-})
-
-...
-```
-
-You can also set a proxy globally using an environment variable:
-
-```bash
-export G4F_PROXY="http://host:port"
-```
-
-</Step>
-</Steps>
-
-For more advanced usage and examples, refer to the [Full Documentation](/docs).
+For more advanced usage and examples, refer to the [Full Documentation](/docs/core/usage/main).
