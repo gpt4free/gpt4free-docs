@@ -1,5 +1,4 @@
-# g4f docs
-
+# G4F Docs
 
 These docs use mdx and markdown, and are still in early stage with a lot of instructions missing.
 We'd love your help and contribution to improve the documentation.
