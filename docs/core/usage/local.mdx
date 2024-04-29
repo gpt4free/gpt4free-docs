@@ -1,6 +1,6 @@
 ---
 title: 'Local inference'
-description: 'How to use g4f to run language models locally'
+description: 'How to use G4F to run language models locally'
 ---
 
 ### Required dependencies
@@ -33,7 +33,7 @@ for token in response:
     print(token.choices[0].delta.content or "")
 ```
 
-Upon first use, there will be a prompt asking you if you wish to download the model. If you respond with `y`, g4f will go ahead and download the model for you.
+Upon first use, there will be a prompt asking you if you wish to download the model. If you respond with `y`, G4F will go ahead and download the model for you.
 
 You can also manually place supported models into [`./g4f/local/models/`](https://github.com/xtekky/gpt4free/tree/main/g4f/local/models)
 

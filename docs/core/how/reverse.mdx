@@ -1,17 +1,17 @@
 ---
 title: 'Reversing Sites'
-description: 'Learn how g4f reverses sites and bypasses Cloudflare using webdriver'
+description: 'Learn how G4F reverses sites and bypasses Cloudflare using webdriver'
 ---
 
 <Warning>All information presented in this section is a PoC</Warning>
 
 <Steps titleSize="h3">
 <Step title="Understanding Site Reversing">
- G4F (GPT-4 Free) is a powerful tool that allows you to access various language models and providers without the need for an API key. One of the key features of g4f is its ability to reverse engineer websites to extract the necessary information and bypass security measures like Cloudflare protection.
+ G4F (GPT-4 Free) is a powerful tool that allows you to access various language models and providers without the need for an API key. One of the key features of G4F is its ability to reverse engineer websites to extract the necessary information and bypass security measures like Cloudflare protection.
 </Step>
 
 <Step title="Reversing Process">
- When you use g4f to access a provider, it performs the following steps:
+ When you use G4F to access a provider, it performs the following steps:
  1. Analyzes the website's structure and identifies the relevant endpoints and APIs.
  2. Extracts the necessary parameters, headers, and cookies required to make successful requests.
  3. Mimics the behavior of a real user by sending requests with the appropriate data.
@@ -21,12 +21,12 @@ description: 'Learn how g4f reverses sites and bypasses Cloudflare using webdriv
 <Step title="Bypassing Cloudflare">
  Some websites employ Cloudflare protection to prevent automated access and ensure the legitimacy of the requests. G4F uses the `webdriver` module to bypass Cloudflare by simulating human-like interactions with the website.
  
- Here's a simplified overview of how g4f bypasses Cloudflare:
+ Here's a simplified overview of how G4F bypasses Cloudflare:
  1. Initializes a new instance of the Chrome WebDriver using `undetected_chromedriver`.
  2. Configures the WebDriver with the necessary options, such as user data directory, headless mode, and proxy settings.
  3. Navigates to the target website using the WebDriver.
  4. Detects the presence of Cloudflare protection by checking for specific elements on the page.
- 5. If Cloudflare protection is detected, g4f performs additional steps to solve the challenge:
+ 5. If Cloudflare protection is detected, G4F performs additional steps to solve the challenge:
     - Opens the website in a new tab.
     - Switches to the new tab and closes the old tab.
     - Locates and interacts with the challenge elements, such as clicking on the challenge button.
@@ -50,6 +50,6 @@ description: 'Learn how g4f reverses sites and bypasses Cloudflare using webdriv
  These utility functions make it easier to automate interactions with websites and handle dynamic elements that may not be accessible through standard Selenium methods.
 </Step>
 
-By leveraging site reversing techniques and utilizing the `webdriver` module to bypass Cloudflare, g4f enables users to access a wide range of language models and providers without the need for official API access. This powerful feature opens up new possibilities for utilizing AI-powered services in a more accessible and cost-effective manner.
+By leveraging site reversing techniques and utilizing the `webdriver` module to bypass Cloudflare, G4F enables users to access a wide range of language models and providers without the need for official API access. This powerful feature opens up new possibilities for utilizing AI-powered services in a more accessible and cost-effective manner.
 
 </Steps>

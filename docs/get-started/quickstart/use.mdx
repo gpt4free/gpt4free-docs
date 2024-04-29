@@ -1,13 +1,13 @@
 ---
 title: 'Basic Usage'
-description: 'Learn how to use g4f in your projects'
+description: 'Learn how to use G4F in your projects'
 ---
-<Note>`g4f` is very similar to the [*OpenAI Python Sdk*](https://github.com/openai/openai-python), the g4f completion syntax was made to work exactly like the sdk with some ClassNames being different.</Note>
+<Note>`g4f` is very similar to the [*OpenAI Python Sdk*](https://github.com/openai/openai-python), the `g4f` completion syntax was made to work exactly like the sdk with some ClassNames being different.</Note>
 
 
 ## The `Client` Class
 
-As of the new `v1` library of the OpenAi sdk, g4f is initialised with the `g4f.client.Client` class.
+As of the new `v1` library of the OpenAi sdk, `g4f` is initialised with the `g4f.client.Client` class.
 
 ```jsx
 from g4f.client import Client
@@ -75,7 +75,7 @@ print(chat_completion.choices[0].message.content or "")
 </ParamField>
 
 <ParamField path="provider" type="ProviderType" default="Auto">
-  The provider to use for the chat completion. Imported from `g4f.Provider.ProviderName`. Different working providers are outlined in the g4f README.
+  The provider to use for the chat completion. Imported from `g4f.Provider.ProviderName`. Different working providers are outlined in the `g4f` README.
 </ParamField>
 
 <ParamField path="stream" type="bool" default="False">
@@ -103,7 +103,7 @@ for completion in chat_completion:
     print(completion.choices[0].delta.content or "", end="", flush=True)
 ```
 
-Full g4f example:
+Full G4F example:
   
 ```jsx
 from g4f.client import Client
